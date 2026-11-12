@@ -1,36 +1,19 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# MyLink
 
-## Getting Started
+김동건의 프로필과 링크 모음. Next.js App Router 기반 4주차 실습입니다.
 
-First, run the development server:
+## 실행
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+이 폴더에서 `npm ci` 후 `npm run dev`를 실행하고 http://localhost:3000 에 접속합니다.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+파일 감시 한도 오류가 나면 `WATCHPACK_POLLING=true npm run dev -- --webpack`을 사용합니다.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 화면
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/`: docs/DESIGN.md 기반 최종 화면
+- `/practice/bad`: 막연한 프롬프트로 제작한 첫 화면
+- `/practice/neo`: 구체적인 Neobrutalism 프롬프트 화면
 
-## Learn More
+실습 기록은 docs/WEEK04.md, 디자인 적용 설명은 docs/DESIGN-APPLICATION.md에 있습니다.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+기존 index.html은 GitHub Pages용으로 보존되어 있습니다. GitHub Pages는 Next.js 소스를 실행하지 않으므로 현재 공개 주소와 localhost의 최종 화면은 다를 수 있습니다. 최종 Next.js 배포는 이후 배포 주차에서 진행합니다.
