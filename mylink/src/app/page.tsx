@@ -1,2 +1,2 @@
 import Profile from "@/components/Profile";
-export default function Home() { return <Profile variant="bad" />; }
+export default function Home() { return <Profile variant="neo" />; }
