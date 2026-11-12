@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>김동건 (Donggun Kim) | MyLink</title>
+  
+  <!-- Open Graph / SNS 공유 시 미리보기 정보 -->
+  <meta property="og:title" content="김동건 | MyLink">
+  <meta property="og:description" content="한양대학교 컴퓨터소프트웨어학부 김동건의 프로필 링크">
+  <meta property="og:type" content="website">
+
+  <style>
+    /* ========================================================
+       [CSS 변수 및 기본 테마 설정]
+       ======================================================== */
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #0f172a 100%);
+      --card-bg: rgba(255, 255, 255, 0.05);
+      --card-border: rgba(255, 255, 255, 0.12);
+      --button-bg: rgba(255, 255, 255, 0.08);
+      --button-hover-bg: rgba(255, 255, 255, 0.16);
+      --button-border: rgba(255, 255, 255, 0.15);
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+      --accent-color: #38bdf8;
+      --accent-hanyang: #0e4a84;
+      --badge-bg: rgba(56, 189, 248, 0.12);
+      --badge-border: rgba(56, 189, 248, 0.3);
+      --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.2);
+      --shadow-hover: 0 8px 24px rgba(56, 189, 248, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 32px 16px;
+      line-height: 1.6;
+    }
+
+    /* 배경 장식 원형 글로우 (은은한 조명 효과) */
+    .background-glow {
+      position: fixed;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(15, 23, 42, 0) 70%);
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* 전체 카드 컨테이너 */
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 480px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: 28px;
+      padding: 40px 24px;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* 프로필 아바타 */
+    .avatar-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .avatar {
+      width: 104px;
+      height: 104px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #38bdf8 0%, #2563eb 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 38px;
+      font-weight: 700;
+      color: #ffffff;
+      box-shadow: 0 8px 24px rgba(37, 99, 235, 0.4);
+      border: 3px solid rgba(255, 255, 255, 0.3);
+      user-select: none;
+    }
+
+    /* 온라인 상태 뱃지 */
+    .status-dot {
+      position: absolute;
+      bottom: 4px;
+      right: 4px;
+      width: 18px;
+      height: 18px;
+      background-color: #22c55e;
+      border: 3px solid #0f172a;
+      border-radius: 50%;
+    }
+
+    /* 프로필 정보 텍스트 */
+    .name {
+      font-size: 1.65rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 6px;
+      color: #ffffff;
+    }
+
+    .affiliation-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--badge-bg);
+      border: 1px solid var(--badge-border);
+      color: var(--accent-color);
+      font-size: 0.82rem;
+      font-weight: 500;
+      padding: 5px 12px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+    }
+
+    .affiliation-badge svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+    }
+
+    .bio {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      text-align: center;
+      margin-bottom: 32px;
+      max-width: 90%;
+      word-break: keep-all;
+    }
+
+    /* 링크 목록 */
+    .links-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .link-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 16px 20px;
+      background: var(--button-bg);
+      border: 1px solid var(--button-border);
+      border-radius: 16px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 0.98rem;
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .link-card:hover {
+      background: var(--button-hover-bg);
+      border-color: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .link-card:active {
+      transform: translateY(-1px);
+    }
+
+    .link-left {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .icon-box {
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    .icon-box svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .link-title {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+    }
+
+    .link-subtitle {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-top: 1px;
+    }
+
+    .arrow-icon {
+      width: 18px;
+      height: 18px;
+      fill: var(--text-muted);
+      transition: transform 0.2s ease, fill 0.2s ease;
+      flex-shrink: 0;
+    }
+
+    .link-card:hover .arrow-icon {
+      transform: translateX(4px);
+      fill: var(--accent-color);
+    }
+
+    /* 푸터 */
+    footer {
+      margin-top: 36px;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    footer p {
+      opacity: 0.7;
+    }
+
+    /* 모바일 작은 화면 최적화 */
+    @media (max-width: 480px) {
+      .container {
+        padding: 32px 18px;
+        border-radius: 24px;
+      }
+
+      .name {
+        font-size: 1.45rem;
+      }
+
+      .link-card {
+        padding: 14px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 은은한 배경 조명 효과 -->
+  <div class="background-glow"></div>
+
+  <main class="container">
+    
+    <!-- 프로필 사진 / 아바타 (사진을 넣고 싶으시면 <img> 태그로 교체 가능) -->
+    <div class="avatar-wrapper">
+      <div class="avatar" title="김동건">
+        DG
+      </div>
+      <div class="status-dot" title="Active"></div>
+    </div>
+
+    <!-- 이름 -->
+    <h1 class="name">김동건</h1>
+
+    <!-- 소속 / 소개 배지 -->
+    <div class="affiliation-badge">
+      <!-- 학사모 아이콘 -->
+      <svg viewBox="0 0 24 24">
+        <path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zm0 8.35L4.54 8 12 4.14 19.46 8 12 11.35zM5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+      </svg>
+      <span>한양대학교 컴퓨터소프트웨어학부</span>
+    </div>
+
+    <!-- 간단한 한 줄 소개 -->
+    <p class="bio">
+      기술로 문제를 해결하고 성장을 즐기는 소프트웨어 개발자 지망생입니다.
+    </p>
+
+    <!-- 링크 목록 -->
+    <div class="links-container">
+
+      <!-- ========================================================
+           [1] GitHub 링크 버튼 (필수 요구사항)
+           ★ 아이디 수정 방법:
+              아래 href의 "donggun02"를 본인의 GitHub 아이디로 변경하시면 됩니다.
+           ======================================================== -->
+      <a href="https://github.com/donggun02" target="_blank" rel="noopener noreferrer" class="link-card">
+        <div class="link-left">
+          <div class="icon-box">
+            <!-- GitHub SVG 아이콘 -->
+            <svg viewBox="0 0 24 24">
+              <path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/>
+            </svg>
+          </div>
+          <div class="link-title">
+            <span>GitHub</span>
+            <span class="link-subtitle">github.com/donggun02</span>
+          </div>
+        </div>
+        <!-- 우측 이동 화살표 아이콘 -->
+        <svg class="arrow-icon" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </a>
+
+      <!-- ========================================================
+           [2] 블로그 링크 버튼 (추가 활용 예시)
+           필요 시 href 주소를 본인 블로그로 바꾸거나 주석 처리할 수 있습니다.
+           ======================================================== -->
+      <a href="https://velog.io" target="_blank" rel="noopener noreferrer" class="link-card">
+        <div class="link-left">
+          <div class="icon-box">
+            <!-- 블로그/북마크 아이콘 -->
+            <svg viewBox="0 0 24 24">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10H7v-2h10v2zm0-4H7V7h10v2z"/>
+            </svg>
+          </div>
+          <div class="link-title">
+            <span>Tech Blog</span>
+            <span class="link-subtitle">학습 기록 및 기술 블로그</span>
+          </div>
+        </div>
+        <svg class="arrow-icon" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </a>
+
+      <!-- ========================================================
+           [3] 이메일 문의 버튼 (추가 활용 예시)
+           아래 mailto: 뒤에 본인의 이메일 주소를 입력하시면 됩니다.
+           ======================================================== -->
+      <a href="mailto:donggun@hanyang.ac.kr" class="link-card">
+        <div class="link-left">
+          <div class="icon-box">
+            <!-- 메일 아이콘 -->
+            <svg viewBox="0 0 24 24">
+              <path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+          </div>
+          <div class="link-title">
+            <span>Contact</span>
+            <span class="link-subtitle">이메일 문의 보내기</span>
+          </div>
+        </div>
+        <svg class="arrow-icon" viewBox="0 0 24 24">
+          <path d="M5 12h14M12 5l7 7-7 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </svg>
+      </a>
+
+    </div>
+
+    <!-- 하단 저작권 표시 -->
+    <footer>
+      <p>© 2026 김동건. All rights reserved.</p>
+    </footer>
+
+  </main>
+
+</body>
+</html>
