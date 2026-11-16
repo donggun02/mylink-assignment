@@ -1,0 +1,29 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Temporary shared workspace. Replace with authenticated owner rules before production use.
+    function testWindow() {
+      return request.time < timestamp.date(2026, 12, 16);
+    }
+    match /users/anonymous {
+      allow read: if testWindow();
+      allow create, update: if testWindow()
+        && request.resource.data.keys().hasOnly(['profile', 'updatedAt'])
+        && request.resource.data.profile is map;
+      match /links/{linkId} {
+        allow read, delete: if testWindow();
+        allow create, update: if testWindow()
+          && request.resource.data.keys().hasOnly(['id', 'type', 'title', 'url', 'icon', 'enabled', 'order', 'createdAt', 'updatedAt'])
+          && request.resource.data.title is string
+          && request.resource.data.title.size() > 0
+          && request.resource.data.title.size() <= 100
+          && request.resource.data.type in ['link', 'section']
+          && request.resource.data.enabled is bool
+          && request.resource.data.order is int
+          && request.resource.data.order >= 0
+          && request.resource.data.order < 100
+          && request.resource.data.id == linkId;
+      }
+    }
+  }
+}

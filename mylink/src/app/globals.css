@@ -7,3 +7,5 @@
 @media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
 
 .link-add-panel label{margin-bottom:0}.link-add-panel input{margin-top:8px}.add-link-submit{background:#5B5FC7;color:#fff;width:100%;margin-top:20px;min-height:48px}.add-link-submit:hover{background:#494da9}
+
+.editor-fields{border:0;margin:0;padding:0;min-width:0}.editor-fields:disabled{opacity:.55}.alert .text-btn{font-size:12px;width:auto;white-space:nowrap}
