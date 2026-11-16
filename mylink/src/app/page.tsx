@@ -1,2 +1,2 @@
-import Profile from "@/components/Profile";
-export default function Home() { return <Profile variant="toss" />; }
+import Dashboard from '@/components/Dashboard';
+export default function Home(){return <Dashboard/>;}
